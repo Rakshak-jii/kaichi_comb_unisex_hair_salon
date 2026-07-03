@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaichi Comb — Unisex Hair Studio</title>
+<meta name="description" content="Kaichi Comb, a premium unisex hair studio. Precision cuts, color, and styling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15120F;
+    --ink-2:#1D1812;
+    --ivory:#F3ECDE;
+    --ivory-dim:#C9C0AD;
+    --brass:#C6A15B;
+    --brass-bright:#E4C077;
+    --rust:#8A3B2B;
+    --line: rgba(230,214,180,0.14);
+    --wa-green:#3FA772;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--ivory);
+    font-family:'Work Sans', sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  section{ position:relative; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- comb texture ---------- */
+  .comb-teeth{
+    position:absolute; top:0; bottom:0; width:64px;
+    background-image: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 12px);
+    opacity:.6; pointer-events:none;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(21,18,15,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; flex-direction:column; line-height:1.1; }
+  .logo .hi{ font-size:12px; color:var(--brass); letter-spacing:0.08em; }
+  .logo .en{ font-family:'Fraunces', serif; font-size:20px; font-weight:600; letter-spacing:0.02em; }
+  .nav-links{ display:flex; gap:36px; font-size:14px; letter-spacing:0.03em; }
+  .nav-links a{ position:relative; opacity:.85; transition:opacity .25s; }
+  .nav-links a:hover{ opacity:1; color:var(--brass-bright); }
+  .nav-cta{
+    border:1px solid var(--brass); color:var(--brass-bright);
+    padding:9px 18px; font-size:13px; letter-spacing:0.04em;
+    transition: background .25s, color .25s;
+  }
+  .nav-cta:hover{ background:var(--brass); color:var(--ink); }
+  .burger{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+  .burger span{ width:24px; height:1.5px; background:var(--ivory); display:block; }
+  .mobile-menu{
+    display:none; flex-direction:column; gap:0; background:var(--ink-2);
+    border-top:1px solid var(--line);
+  }
+  .mobile-menu a{ padding:16px 32px; border-bottom:1px solid var(--line); font-size:15px; }
+  .mobile-menu.open{ display:flex; }
+
+  @media (max-width: 860px){
+    .nav-links, .nav-cta{ display:none; }
+    .burger{ display:flex; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:140px 32px 80px;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 78% 20%, rgba(198,161,91,0.10), transparent 55%),
+      var(--ink);
+  }
+  .hero-inner{ max-width:1180px; margin:0 auto; width:100%; position:relative; }
+  .eyebrow{ font-size:12px; color:var(--brass); text-transform:uppercase; letter-spacing:0.18em; margin-bottom:22px; }
+  .hero h1{
+    font-size:clamp(48px, 8vw, 108px);
+    color:var(--ivory);
+    line-height:0.98;
+  }
+  .hero h1 .hi{ display:block; color:var(--brass-bright); font-weight:500; }
+  .hero h1 .en{ display:block; font-style:italic; font-weight:500; }
+  .hero-tag{
+    max-width:460px; margin-top:28px; font-size:17px; color:var(--ivory-dim); font-weight:300;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:44px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 28px; font-size:14px; letter-spacing:0.03em; font-family:'Work Sans';
+    border:1px solid transparent; cursor:pointer;
+  }
+  .btn-solid{ background:var(--brass); color:var(--ink); font-weight:500; }
+  .btn-solid:hover{ background:var(--brass-bright); }
+  .btn-outline{ border-color:var(--line); color:var(--ivory); }
+  .btn-outline:hover{ border-color:var(--brass); color:var(--brass-bright); }
+
+  /* scissor snip line */
+  .snip-line{ margin-top:70px; width:100%; max-width:560px; }
+  .snip-line svg{ width:100%; height:auto; }
+  .snip-path{
+    stroke-dasharray: 4 10; stroke-dashoffset:0;
+    animation: dash 6s linear infinite;
+  }
+  @keyframes dash{ to{ stroke-dashoffset:-140; } }
+  .scissor-icon{ animation: snip 3.2s ease-in-out infinite; transform-origin: 50% 50%; }
+  @keyframes snip{
+    0%,100%{ transform: translateX(0) rotate(0deg); }
+    45%{ transform: translateX(0) rotate(0deg); }
+    50%{ transform: translateX(0) rotate(-4deg); }
+    55%{ transform: translateX(0) rotate(0deg); }
+  }
+
+  /* ---------- section heads ---------- */
+  .sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:24px; margin-bottom:56px; flex-wrap:wrap; }
+  .sec-num{ font-size:13px; color:var(--brass); }
+  .sec-head h2{ font-size:clamp(30px,4vw,46px); }
+  .sec-sub{ max-width:340px; color:var(--ivory-dim); font-size:15px; }
+
+  /* ---------- about ---------- */
+  .about{ padding:130px 0; border-top:1px solid var(--line); }
+  .about-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:64px; align-items:start; }
+  .about-grid h2{ font-size:clamp(28px,3.6vw,42px); font-style:italic; font-weight:500; color:var(--brass-bright); line-height:1.25; }
+  .about-copy p{ color:var(--ivory-dim); font-size:16px; margin-bottom:18px; }
+  .about-copy .lead{ color:var(--ivory); font-size:18px; }
+  @media(max-width:820px){ .about-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- services (shade card) ---------- */
+  .services{ padding:130px 0; border-top:1px solid var(--line); background:var(--ink-2); }
+  .shade-rack{ display:flex; flex-direction:column; }
+  .shade-item{
+    display:grid; grid-template-columns: 90px 1fr auto auto;
+    align-items:center; gap:24px;
+    padding:26px 8px; border-bottom:1px solid var(--line);
+    transition: padding-left .3s;
+  }
+  .shade-item:hover{ padding-left:20px; }
+  .shade-item:hover .swatch{ transform:scaleY(1); }
+  .swatch{ width:44px; height:44px; border-radius:2px; transform:scaleY(0.7); transition:transform .3s; }
+  .shade-name{ font-family:'Fraunces',serif; font-size:20px; font-weight:500; }
+  .shade-desc{ font-size:13px; color:var(--ivory-dim); margin-top:4px; }
+  .shade-time{ font-size:12px; color:var(--ivory-dim); }
+  .shade-price{ font-size:16px; color:var(--brass-bright); }
+  @media(max-width:640px){
+    .shade-item{ grid-template-columns: 50px 1fr auto; }
+    .shade-time{ display:none; }
+    .swatch{ width:30px; height:30px; }
+  }
+
+  /* ---------- gallery / looks ---------- */
+  .looks{ padding:130px 0; border-top:1px solid var(--line); }
+  .looks-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+  .look{
+    aspect-ratio: 3/4; position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; padding:18px;
+  }
+  .look span{ font-size:13px; letter-spacing:0.03em; position:relative; z-index:2; color:var(--ink); font-weight:500; }
+  .look::before{
+    content:''; position:absolute; inset:0; transition:transform .5s ease;
+  }
+  .look:hover::before{ transform:scale(1.08); }
+  .look:nth-child(1)::before{ background: repeating-linear-gradient(115deg, #C6A15B 0 12px, #B8912F 12px 24px); }
+  .look:nth-child(2)::before{ background: radial-gradient(circle at 30% 30%, #8A3B2B, #3d1a12 75%); }
+  .look:nth-child(3)::before{ background: repeating-radial-gradient(circle at 50% 50%, #F3ECDE 0 3px, #C9C0AD 3px 6px); }
+  .look:nth-child(4)::before{ background: linear-gradient(160deg, #E4C077, #8A3B2B); }
+  .look:nth-child(2) span, .look:nth-child(4) span{ color:var(--ivory); }
+
+  @media(max-width:820px){ .looks-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- team ---------- */
+  .team{ padding:130px 0; border-top:1px solid var(--line); background:var(--ink-2); }
+  .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+  .stylist{ text-align:left; }
+  .avatar{
+    width:100%; aspect-ratio:1; border-radius:50%; border:1px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:34px; color:var(--brass-bright);
+    margin-bottom:18px; position:relative;
+  }
+  .avatar::after{
+    content:''; position:absolute; inset:-8px; border:1px solid var(--line); border-radius:50%;
+  }
+  .stylist h3{ font-size:18px; font-weight:500; }
+  .stylist .role{ font-size:13px; color:var(--brass); margin-top:2px; }
+  .stylist p{ font-size:14px; color:var(--ivory-dim); margin-top:10px; }
+  @media(max-width:820px){ .team-grid{ grid-template-columns:repeat(2,1fr); gap:36px 24px; } }
+
+  /* ---------- testimonials ---------- */
+  .testimonials{ padding:130px 0; border-top:1px solid var(--line); }
+  .quote-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); }
+  .quote-card{ background:var(--ink); padding:36px 30px; }
+  .quote-card .mark{ font-family:'Fraunces',serif; font-size:44px; color:var(--brass); line-height:1; }
+  .quote-card p{ font-size:15px; color:var(--ivory-dim); margin:16px 0 20px; }
+  .quote-card .who{ font-size:13px; color:var(--brass-bright); }
+  @media(max-width:820px){ .quote-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- booking cta ---------- */
+  .booking{
+    padding:130px 0; border-top:1px solid var(--line);
+    background: linear-gradient(180deg, var(--ink-2), var(--ink));
+    text-align:center;
+  }
+  .booking h2{ font-size:clamp(32px,5vw,58px); font-style:italic; color:var(--brass-bright); max-width:760px; margin:0 auto 26px; }
+  .booking p{ color:var(--ivory-dim); max-width:480px; margin:0 auto 40px; }
+  .booking .hero-ctas{ justify-content:center; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:60px 0 32px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:50px; }
+  .foot-grid h4{ font-size:12px; letter-spacing:0.1em; color:var(--brass); margin-bottom:16px; text-transform:uppercase; }
+  .foot-grid p, .foot-grid a{ font-size:14px; color:var(--ivory-dim); display:block; margin-bottom:8px; }
+  .foot-grid a:hover{ color:var(--brass-bright); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--ivory-dim); border-top:1px solid var(--line); padding-top:24px; flex-wrap:wrap; gap:12px; }
+  @media(max-width:820px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+
+  /* ---------- floating whatsapp ---------- */
+  .wa-float{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    width:60px; height:60px; border-radius:50%;
+    background:var(--wa-green);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .wa-float:hover{ transform:scale(1.06); }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 8px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(63,167,114,0.5); }
+    50%{ box-shadow:0 8px 24px rgba(0,0,0,0.4), 0 0 0 10px rgba(63,167,114,0); }
+  }
+  .wa-tooltip{
+    position:absolute; right:72px; bottom:14px;
+    background:var(--ivory); color:var(--ink);
+    font-size:12px; padding:8px 12px; border-radius:4px; white-space:nowrap;
+    opacity:0; transform:translateX(6px); transition:opacity .25s, transform .25s; pointer-events:none;
+  }
+  .wa-float:hover .wa-tooltip{ opacity:1; transform:translateX(0); }
+  @media(max-width:480px){ .wa-tooltip{ display:none; } }
+
+  :focus-visible{ outline:2px solid var(--brass-bright); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo">
+      <span class="hi">कैंची · COMB</span>
+      <span class="en">KAICHI COMB</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">Studio</a>
+      <a href="#services">Services</a>
+      <a href="#looks">Looks</a>
+      <a href="#team">Stylists</a>
+    </div>
+    <a href="#book" class="nav-cta">Book Now</a>
+    <button class="burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">Studio</a>
+    <a href="#services">Services</a>
+    <a href="#looks">Looks</a>
+    <a href="#team">Stylists</a>
+    <a href="#book">Book Now</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="eyebrow">Unisex Hair Studio</div>
+    <h1>
+      <span class="hi">कैंची</span>
+      <span class="en">Comb.</span>
+    </h1>
+    <p class="hero-tag">Precision in every snip, care in every comb. A chair for everyone — cut, coloured and styled with the same quiet attention.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/919009801762" target="_blank" rel="noopener" class="btn btn-solid">Book on WhatsApp</a>
+      <a href="#services" class="btn btn-outline">View Services</a>
+    </div>
+
+    <div class="snip-line" aria-hidden="true">
+      <svg viewBox="0 0 560 60" fill="none">
+        <path class="snip-path" d="M0 30 H480" stroke="#5b5347" stroke-width="1"/>
+        <g class="scissor-icon" transform="translate(490,30)">
+          <circle cx="-14" cy="-8" r="5" stroke="#C6A15B" stroke-width="1.4"/>
+          <circle cx="-14" cy="8" r="5" stroke="#C6A15B" stroke-width="1.4"/>
+          <path d="M-10 -6 L18 0 L-10 6" stroke="#E4C077" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="comb-teeth" style="right:0;" aria-hidden="true"></div>
+</section>
+
+<section class="about reveal" id="about">
+  <div class="wrap about-grid">
+    <h2>We treat a haircut as a conversation, not a transaction.</h2>
+    <div class="about-copy">
+      <p class="lead">Kaichi Comb was built on one idea — that a good stylist listens before the scissors ever open.</p>
+      <p>Every service here follows a fixed rhythm: a consultation, a plan, and the cut itself. Nothing rushed, nothing templated to the last client. Men, women, and everyone in between get the same chair, the same standard.</p>
+      <p class="mono" style="font-size:13px; color:var(--brass-bright);">TWO CHAIRS · ONE STANDARD · EVERY CLIENT CONSULTED FIRST</p>
+    </div>
+  </div>
+</section>
+
+<section class="services reveal" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num mono">01 — The Shade Card</div>
+        <h2>Services &amp; Pricing</h2>
+      </div>
+      <p class="sec-sub">Priced like a colourist reads a swatch — laid flat, nothing hidden.</p>
+    </div>
+
+    <div class="shade-rack">
+      <div class="shade-item">
+        <div class="swatch" style="background:#C6A15B;"></div>
+        <div>
+          <div class="shade-name">Signature Haircut</div>
+          <div class="shade-desc">Consultation, wash, precision cut &amp; finish — men &amp; women</div>
+        </div>
+        <div class="shade-time mono">45 min</div>
+        <div class="shade-price mono">from ₹499</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#8A3B2B;"></div>
+        <div>
+          <div class="shade-name">Global Hair Colour</div>
+          <div class="shade-desc">Full-head colour with ammonia-free formulas</div>
+        </div>
+        <div class="shade-time mono">90 min</div>
+        <div class="shade-price mono">from ₹2,499</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#E4C077;"></div>
+        <div>
+          <div class="shade-name">Balayage &amp; Highlights</div>
+          <div class="shade-desc">Hand-painted dimension, tailored to your base</div>
+        </div>
+        <div class="shade-time mono">150 min</div>
+        <div class="shade-price mono">from ₹4,999</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#B8912F;"></div>
+        <div>
+          <div class="shade-name">Keratin Smoothening</div>
+          <div class="shade-desc">Frizz control treatment, lasts up to 4 months</div>
+        </div>
+        <div class="shade-time mono">180 min</div>
+        <div class="shade-price mono">from ₹5,999</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#6B6058;"></div>
+        <div>
+          <div class="shade-name">Hair Spa &amp; Treatment</div>
+          <div class="shade-desc">Deep conditioning ritual for scalp &amp; strands</div>
+        </div>
+        <div class="shade-time mono">60 min</div>
+        <div class="shade-price mono">from ₹999</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#3d332a;"></div>
+        <div>
+          <div class="shade-name">Beard Grooming</div>
+          <div class="shade-desc">Shape, trim &amp; hot towel finish</div>
+        </div>
+        <div class="shade-time mono">30 min</div>
+        <div class="shade-price mono">from ₹299</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#C9C0AD;"></div>
+        <div>
+          <div class="shade-name">Bridal &amp; Party Styling</div>
+          <div class="shade-desc">Trial + event-day styling, hair &amp; draping</div>
+        </div>
+        <div class="shade-time mono">120 min</div>
+        <div class="shade-price mono">on request</div>
+      </div>
+      <div class="shade-item">
+        <div class="swatch" style="background:#F3ECDE;"></div>
+        <div>
+          <div class="shade-name">Threading &amp; Waxing</div>
+          <div class="shade-desc">Face &amp; body, full service menu on request</div>
+        </div>
+        <div class="shade-time mono">20 min</div>
+        <div class="shade-price mono">from ₹99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="looks reveal" id="looks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num mono">02 — Look Book</div>
+        <h2>Recent Work, By Texture</h2>
+      </div>
+      <p class="sec-sub">A quick sense of range — real portfolio photos drop in here once you share them.</p>
+    </div>
+    <div class="looks-grid">
+      <div class="look"><span>Textured Crop</span></div>
+      <div class="look"><span>Balayage Waves</span></div>
+      <div class="look"><span>Classic Fade</span></div>
+      <div class="look"><span>Bridal Updo</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="team reveal" id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num mono">03 — The Chairs</div>
+        <h2>Meet the Stylists</h2>
+      </div>
+      <p class="sec-sub">Swap in your real team's names, specialties &amp; photos any time.</p>
+    </div>
+    <div class="team-grid">
+      <div class="stylist">
+        <div class="avatar">A</div>
+        <h3>Aman</h3>
+        <div class="role">Senior Stylist — Cuts</div>
+        <p>Precision men's &amp; unisex cutting, ten years on the floor.</p>
+      </div>
+      <div class="stylist">
+        <div class="avatar">R</div>
+        <h3>Riya</h3>
+        <div class="role">Colour Specialist</div>
+        <p>Balayage, global colour &amp; corrective work.</p>
+      </div>
+      <div class="stylist">
+        <div class="avatar">S</div>
+        <h3>Sahil</h3>
+        <div class="role">Grooming &amp; Beard</div>
+        <p>Beard sculpting, hot towel shaves, skin fades.</p>
+      </div>
+      <div class="stylist">
+        <div class="avatar">N</div>
+        <h3>Neha</h3>
+        <div class="role">Bridal &amp; Styling</div>
+        <p>Bridal trials, party looks, draping &amp; updos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials reveal" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num mono">04 — In Their Words</div>
+        <h2>What Clients Say</h2>
+      </div>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card">
+        <div class="mark">"</div>
+        <p>First salon where the stylist actually asked what I wanted before touching the scissors.</p>
+        <div class="who mono">— Regular, since 2023</div>
+      </div>
+      <div class="quote-card">
+        <div class="mark">"</div>
+        <p>Got my beard and my wife's balayage done same evening. Both left happy — that never happens.</p>
+        <div class="who mono">— Weekend walk-in</div>
+      </div>
+      <div class="quote-card">
+        <div class="mark">"</div>
+        <p>Booked my bridal trial here on a whim. Ended up moving the whole wedding party's styling too.</p>
+        <div class="who mono">— Bride, Dec batch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking reveal" id="book">
+  <div class="wrap">
+    <h2>Your next cut is one message away.</h2>
+    <p>Tell us the service, the day, and how many chairs you need — we'll confirm on WhatsApp in minutes.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/919009801762" target="_blank" rel="noopener" class="btn btn-solid">Message on WhatsApp</a>
+      <a href="tel:+919009801762" class="btn btn-outline">Call the Studio</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Kaichi Comb</h4>
+        <p style="color:var(--ivory); font-family:'Fraunces',serif; font-size:16px; margin-bottom:14px;">Unisex Hair Studio</p>
+        <p>Shop No. — , [Your Street / Landmark]<br>[Your City], [PIN]</p>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <p>Mon – Sat · 10:00 AM – 8:30 PM</p>
+        <p>Sunday · 11:00 AM – 6:00 PM</p>
+      </div>
+      <div>
+        <h4>Reach Us</h4>
+        <a href="https://wa.me/919009801762" target="_blank" rel="noopener">WhatsApp — 90098 01762</a>
+        <a href="tel:+919009801762">Call — 90098 01762</a>
+        <a href="#" target="_blank" rel="noopener">@kaichicomb</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Kaichi Comb. All rights reserved.</span>
+      <span>Design &amp; build — original, no stock assets used.</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919009801762" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <span class="wa-tooltip">Chat with us</span>
+  <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+    <path d="M16 4C9.4 4 4 9.4 4 16c0 2.5.7 4.8 1.9 6.8L4 28l5.4-1.8c1.9 1 4.1 1.6 6.6 1.6 6.6 0 12-5.4 12-12S22.6 4 16 4z" fill="#fff"/>
+    <path d="M16 5.4C10.2 5.4 5.4 10.2 5.4 16c0 2.2.7 4.3 1.9 6l-1.2 4.4 4.5-1.2c1.7 1 3.6 1.6 5.6 1.6 5.8 0 10.6-4.8 10.6-10.6S21.8 5.4 16 5.4z" fill="var(--wa-green)"/>
+    <path d="M12.4 10.6c-.3-.6-.5-.6-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.4c.2.3 2.3 3.6 5.7 4.9 2.8 1.1 3.4.9 4 .8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.3-.2.2-.4.3-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.6-1.9-1.7-2.2-.2-.3 0-.5.1-.6.1-.2.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.9-1-2.6z" fill="#fff"/>
+  </svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
