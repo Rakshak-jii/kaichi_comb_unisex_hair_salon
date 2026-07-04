@@ -186,6 +186,11 @@
     content:''; position:absolute; inset:0; transition:transform .5s ease;
   }
   .look:hover::before{ transform:scale(1.08); }
+  .look img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; z-index:1; transition:transform .5s ease;
+  }
+  .look:hover img{ transform:scale(1.08); }
   .look:nth-child(1)::before{ background: repeating-linear-gradient(115deg, #C6A15B 0 12px, #B8912F 12px 24px); }
   .look:nth-child(2)::before{ background: radial-gradient(circle at 30% 30%, #8A3B2B, #3d1a12 75%); }
   .look:nth-child(3)::before{ background: repeating-radial-gradient(circle at 50% 50%, #F3ECDE 0 3px, #C9C0AD 3px 6px); }
@@ -202,11 +207,16 @@
     width:100%; aspect-ratio:1; border-radius:50%; border:1px solid var(--brass);
     display:flex; align-items:center; justify-content:center;
     font-family:'Fraunces',serif; font-size:34px; color:var(--brass-bright);
-    margin-bottom:18px; position:relative;
+    margin-bottom:18px; position:relative; overflow:hidden;
   }
   .avatar::after{
     content:''; position:absolute; inset:-8px; border:1px solid var(--line); border-radius:50%;
+    pointer-events:none;
   }
+  .avatar img{
+    width:100%; height:100%; object-fit:cover; border-radius:50%;
+  }
+  .avatar-fallback{ display:flex; align-items:center; justify-content:center; }
   .stylist h3{ font-size:18px; font-weight:500; }
   .stylist .role{ font-size:13px; color:var(--brass); margin-top:2px; }
   .stylist p{ font-size:14px; color:var(--ivory-dim); margin-top:10px; }
@@ -429,10 +439,22 @@
       <p class="sec-sub">A quick sense of range — real portfolio photos drop in here once you share them.</p>
     </div>
     <div class="looks-grid">
-      <div class="look"><span>Textured Crop</span></div>
-      <div class="look"><span>Balayage Waves</span></div>
-      <div class="look"><span>Classic Fade</span></div>
-      <div class="look"><span>Bridal Updo</span></div>
+      <div class="look">
+        <img src="images/look-1.jpg" alt="Textured Crop" onerror="this.style.display='none';">
+        <span>Textured Crop</span>
+      </div>
+      <div class="look">
+        <img src="images/look-2.jpg" alt="Balayage Waves" onerror="this.style.display='none';">
+        <span>Balayage Waves</span>
+      </div>
+      <div class="look">
+        <img src="images/look-3.jpg" alt="Classic Fade" onerror="this.style.display='none';">
+        <span>Classic Fade</span>
+      </div>
+      <div class="look">
+        <img src="images/look-4.jpg" alt="Bridal Updo" onerror="this.style.display='none';">
+        <span>Bridal Updo</span>
+      </div>
     </div>
   </div>
 </section>
@@ -448,25 +470,37 @@
     </div>
     <div class="team-grid">
       <div class="stylist">
-        <div class="avatar">A</div>
+        <div class="avatar">
+          <img src="images/stylist-aman.jpg" alt="Aman" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="avatar-fallback">A</span>
+        </div>
         <h3>Aman</h3>
         <div class="role">Senior Stylist — Cuts</div>
         <p>Precision men's &amp; unisex cutting, ten years on the floor.</p>
       </div>
       <div class="stylist">
-        <div class="avatar">R</div>
+        <div class="avatar">
+          <img src="images/stylist-riya.jpg" alt="Riya" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="avatar-fallback">R</span>
+        </div>
         <h3>Riya</h3>
         <div class="role">Colour Specialist</div>
         <p>Balayage, global colour &amp; corrective work.</p>
       </div>
       <div class="stylist">
-        <div class="avatar">S</div>
+        <div class="avatar">
+          <img src="images/stylist-sahil.jpg" alt="Sahil" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="avatar-fallback">S</span>
+        </div>
         <h3>Sahil</h3>
         <div class="role">Grooming &amp; Beard</div>
         <p>Beard sculpting, hot towel shaves, skin fades.</p>
       </div>
       <div class="stylist">
-        <div class="avatar">N</div>
+        <div class="avatar">
+          <img src="images/stylist-neha.jpg" alt="Neha" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="avatar-fallback">N</span>
+        </div>
         <h3>Neha</h3>
         <div class="role">Bridal &amp; Styling</div>
         <p>Bridal trials, party looks, draping &amp; updos.</p>
